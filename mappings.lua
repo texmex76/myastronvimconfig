@@ -37,11 +37,11 @@ return {
         -- this is useful for naming menus
         -- ["<leader>b"] = { name = "Buffers" },
         -- quick save
-        ["<leader>la"] = {
-            ":lua vim.lsp.buf.code_action()<CR>",
-            desc = "Code action"
-        },
-        ["<leader>lq"] = {":lua quickfix()<CR>", desc = "Quick fix"},
+        -- ["<leader>la"] = {
+        --     ":lua vim.lsp.buf.code_action()<CR>",
+        --     desc = "Code action"
+        -- },
+        -- ["<leader>lq"] = {":lua quickfix()<CR>", desc = "Quick fix"},
         ["<leader>t1"] = {
             ":lua require('toggleterm').exec('', 1)<CR>",
             desc = "ToggleTerm 1"
@@ -57,7 +57,8 @@ return {
         ["<leader>t4"] = {
             ":lua require('toggleterm').exec('', 2)<CR>",
             desc = "ToggleTerm 4"
-        }
+        },
+        ["<C-m>"] = {":!make<CR>", desc = "Make"}
     }
     -- t = {
     --   -- setting a mapping to false will disable it
