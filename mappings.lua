@@ -4,6 +4,20 @@ function quickfix()
         apply = true
     })
 end
+
+local esc_pressed_once = false
+
+local function on_esc_press()
+    if esc_pressed_once then
+        -- Perform the action if Esc is pressed twice quickly
+        vim.api.nvim_input("<C-\\><C-n>")
+        esc_pressed_once = false
+    else
+        esc_pressed_once = true
+        -- Wait for a short period to check for the second press
+        vim.defer_fn(function() esc_pressed_once = false end, 300) -- 300 ms
+    end
+end
 -- Mapping data with "desc" stored directly by vim.keymap.set().
 --
 -- Please use this mappings table to set keyboard mapping since this is the
@@ -41,7 +55,7 @@ return {
         --     ":lua vim.lsp.buf.code_action()<CR>",
         --     desc = "Code action"
         -- },
-        -- ["<leader>lq"] = {":lua quickfix()<CR>", desc = "Quick fix"},
+        ["<leader>lq"] = {":lua quickfix()<CR>", desc = "Quick fix"},
         ["<leader>t1"] = {
             ":lua require('toggleterm').exec('', 1)<CR>",
             desc = "ToggleTerm 1"
@@ -59,9 +73,6 @@ return {
             desc = "ToggleTerm 4"
         },
         ["<C-m>"] = {":!make<CR>", desc = "Make"}
-    }
-    -- t = {
-    --   -- setting a mapping to false will disable it
-    --   -- ["<esc>"] = false,
-    -- },
+    },
+    t = {["<Esc>"] = {on_esc_press, desc = "Handle double Esc press"}}
 }
