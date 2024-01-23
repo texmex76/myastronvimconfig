@@ -72,7 +72,8 @@ return {
             ":lua require('toggleterm').exec('', 2)<CR>",
             desc = "ToggleTerm 4"
         },
-        ["<C-m>"] = {":!make<CR>", desc = "Make"}
+        ["<C-m>"] = {":w<CR>:!make<CR>", desc = "Make"},
+        ["<leader>ml"] = {":w<CR>:!latexmk<CR>", desc = "latexmk"}
     },
     t = {["<Esc>"] = {on_esc_press, desc = "Handle double Esc press"}}
 }
