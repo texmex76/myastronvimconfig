@@ -1,7 +1,9 @@
 return {
     "nvim-neo-tree/neo-tree.nvim",
     opts = {
+        buffers = {follow_current_file = true},
         filesystem = {
+            follow_current_file = {enabled = true},
             filtered_items = {
                 visible = true,
                 show_hidden_count = true,

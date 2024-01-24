@@ -73,7 +73,8 @@ return {
             desc = "ToggleTerm 4"
         },
         ["<C-m>"] = {":w<CR>:!make<CR>", desc = "Make"},
-        ["<leader>ml"] = {":w<CR>:!latexmk<CR>", desc = "latexmk"}
+        ["<leader>ml"] = {":w<CR>:!latexmk<CR>", desc = "latexmk"},
+        ["<leader>e"] = {":Neotree toggle reveal_force_cwd<CR>"}
     },
     t = {["<Esc>"] = {on_esc_press, desc = "Handle double Esc press"}}
 }
