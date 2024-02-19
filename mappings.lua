@@ -18,6 +18,18 @@ local function on_esc_press()
         vim.defer_fn(function() esc_pressed_once = false end, 300) -- 300 ms
     end
 end
+
+function show_docstring_in_insert_mode()
+    -- Exit insert mode
+    vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Esc>", true, false,
+                                                         true), 'n', false)
+    -- Trigger LSP hover command
+    vim.cmd('lua vim.lsp.buf.hover()')
+    -- Return to insert mode
+    vim.api.nvim_feedkeys(
+        vim.api.nvim_replace_termcodes("i", true, false, true), 'n', false)
+end
+
 -- Mapping data with "desc" stored directly by vim.keymap.set().
 --
 -- Please use this mappings table to set keyboard mapping since this is the
@@ -25,6 +37,12 @@ end
 -- automatically pick-up stored data by this setting.)
 return {
     -- first key is the mode
+    i = {
+        ["<C-a>"] = {
+            "<cmd>lua show_docstring_in_insert_mode()<CR>",
+            desc = "Make"
+        }
+    },
     n = {
         -- second key is the lefthand side of the map
 
@@ -72,9 +90,11 @@ return {
             ":lua require('toggleterm').exec('', 2)<CR>",
             desc = "ToggleTerm 4"
         },
-        ["<C-m>"] = {":w<CR>:!make<CR>", desc = "Make"},
         ["<leader>ml"] = {":w<CR>:!latexmk<CR>", desc = "latexmk"},
-        ["<leader>e"] = {":Neotree toggle reveal_force_cwd<CR>"}
+        ["<leader>mm"] = {":w<CR>:!make<CR>", desc = "Make"},
+        ["<leader>e"] = {":Neotree toggle reveal_force_cwd<CR>"},
+        ["<leader>if"] = {":echo expand('%:p')<CR>", desc = "Current file path"},
+        ["<S-H>"] = {":w<CR>", desc = "Current file path"}
     },
     t = {["<Esc>"] = {on_esc_press, desc = "Handle double Esc press"}}
 }
