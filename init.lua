@@ -15,9 +15,11 @@ if not pcall(require, "lazy") then
   vim.cmd.quit()
 end
 
-vim.wo.wrap = true
-vim.wo.linebreak = true
-vim.wo.list = false
+vim.api.nvim_create_autocmd("VimEnter", {
+  callback = function()
+    vim.wo.wrap = true
+  end,
+})
 
 require "lazy_setup"
 require "polish"
